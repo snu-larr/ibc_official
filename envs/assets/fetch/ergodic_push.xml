@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco>
+	<compiler angle="radian" coordinate="local" meshdir="../stls/fetch" texturedir="../textures"></compiler>
+	<option timestep="0.002">
+		<flag warmstart="enable"></flag>
+	</option>
+
+	<include file="shared.xml"></include>
+	
+	<worldbody>
+		<geom name="floor0" pos="0.8 0.75 0" size="0.85 0.70 1" type="plane" condim="3" material="floor_mat"></geom>
+		<body name="floor0" pos="0.8 0.75 0">
+			<site name="target0" pos="0 0 0.5" size="0.02 0.02 0.02" rgba="1 0 0 1" type="sphere"></site>
+		</body>
+
+		<include file="robot.xml"></include>
+
+		<body pos="1.35 0.75 0.2" name="table0">
+			<geom size="0.3 0.35 0.2" type="box" mass="2000" material="table_mat"></geom>
+		</body>
+		
+		<body name="object0" pos="0.025 0.025 0.025">
+            <joint name="object0:joint_px" type="slide" damping="0.01" axis="1 0 0" range="1.14786948 1.54786948" limited="true"></joint>
+            <joint name="object0:joint_py" type="slide" damping="0.01" axis="0 1 0" range="0.54894948 0.94894948" limited="true"></joint>
+            <joint name="object0:joint_pz" type="slide" damping="0.01" axis="0 0 1" range="0 1" limited="true"></joint>
+            <joint name="object0:joint_rxyz" type="ball" damping="0.01"></joint>
+			<geom size="0.025 0.025 0.025" type="box" condim="3" name="object0" material="block_mat" mass="2"></geom>
+			<site name="object0" pos="0 0 0" size="0.02 0.02 0.02" rgba="1 0 0 1" type="sphere"></site>
+		</body>
+
+		<body name="object0:limit_vis" pos="0.025 0.025 0.025">
+			<geom conaffinity="0" contype="0" pos="1.34786948 0.54894948 0.4" rgba="0.5 0 0 0.2" size="0.2 0.005 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.34786948 0.54894948 1" rgba="0.5 0 0 0.2" size="0.2 0.005 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.34786948 0.94894948 0.4" rgba="0.5 0 0 0.2" size="0.2 0.005 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.34786948 0.94894948 1" rgba="0.5 0 0 0.2" size="0.2 0.005 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.14786948 0.74894948 0.4" rgba="0.5 0 0 0.2" size="0.005 0.2 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.14786948 0.74894948 1" rgba="0.5 0 0 0.2" size="0.005 0.2 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.54786948 0.74894948 0.4" rgba="0.5 0 0 0.2" size="0.005 0.2 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.54786948 0.74894948 1" rgba="0.5 0 0 0.2" size="0.005 0.2 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.14786948 0.54894948 0.7" rgba="0.5 0 0 0.2" size="0.005 0.005 0.3" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.14786948 0.94894948 0.7" rgba="0.5 0 0 0.2" size="0.005 0.005 0.3" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.54786948 0.54894948 0.7" rgba="0.5 0 0 0.2" size="0.005 0.005 0.3" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.54786948 0.94894948 0.7" rgba="0.5 0 0 0.2" size="0.005 0.005 0.3" type="box"></geom>
+		</body>
+
+		<light directional="true" ambient="0.2 0.2 0.2" diffuse="0.8 0.8 0.8" specular="0.3 0.3 0.3" castshadow="false" pos="0 0 4" dir="0 0 -1" name="light0"></light>
+	</worldbody>
+	
+	<actuator></actuator>
+</mujoco>

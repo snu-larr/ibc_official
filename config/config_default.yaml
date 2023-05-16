@@ -1,0 +1,211 @@
+defaults:
+  - paths: config_path
+  - override hydra/launcher: joblib
+# env
+env: ??? 
+frame_stack: 3 # currently meaningless
+action_repeat: 1 # affects on logging x axis
+# train
+num_train_steps: ??? 
+num_random_steps: 400 
+replay_buffer_capacity: 1000000 
+
+
+seed: 1
+# eval
+eval_frequency: 20000
+num_eval_episodes: 20 
+# misc
+log_frequency_step: 10000
+log_save_tb: true
+save_video: true
+save_model: true 
+save_buffer: false
+save_pixels: false
+save_frequency: 500000
+device: "cuda"
+
+
+load_pretrained: false
+pretrained_step: 250000
+pretrained_dir: none
+
+##########
+non_episodic : true
+non_episodic_video_save_frequency : 20000
+num_non_episodic_record_frames : 1000
+max_episode_timesteps : ??? 
+num_seed_steps : 800 
+use_forward_her : true 
+use_backward_her : true
+forward_env_obs_type : 'state_goal' 
+backward_env_obs_type : 'state_goal' 
+logging_frequency : 1000
+backward_proprioceptive_only : true 
+no_backward_if_forward_succeed : true 
+traj_length : None 
+state_dim : ???
+state_goal_dim : ???
+num_K : ???
+
+###########
+done_on_success : true 
+consider_done_true_in_critic : false 
+sparse_reward_type : negative
+fc_layer_norm_for_obs : true
+adam_eps : 1e-8
+optim : adam  
+rl_batch_size : 512
+full_state_goal : false
+add_noise_to_forward_goal : false 
+normalize_rl_obs : false
+
+hgg_save_freq : ???
+use_curriculum : ${forward_curriculum} 
+forward_curriculum : true 
+backward_curriculum : false 
+hgg_kwargs:
+  hgg_sampler_update_frequency : 20 # unit : episode
+  trajectory_pool_kwargs:
+    pool_length: 1000 # number of trajectories in pool
+    num_episodes : 1000 
+  match_sampler_kwargs:
+    num_episodes : 50 
+    add_noise_to_goal : true 
+    gamma : ${agent.discount} # 0.99 
+    hgg_c : 3
+    hgg_L : 5
+    device : ${device}
+    init_compute_type : proprioceptive # object_proprioceptive
+    return_init_candidates_for_backward_proprioceptive : true 
+    match_lib_path : ${paths.workspace_path}    
+    sparse_reward_type : ${sparse_reward_type}
+    normalize_rl_obs : ${normalize_rl_obs}
+
+forward_agent:
+  _target_: ibc.IBCAgent
+  obs_shape: ??? # to be specified later
+  action_shape: ??? # to be specified later
+  action_range: ??? # to be specified later
+  device: ${device}
+  encoder_cfg: ${forward_encoder}
+  encoder_target_cfg: ${forward_encoder}
+  critic_cfg: ${forward_critic}
+  critic_target_cfg: ${forward_critic}
+  actor_cfg: ${forward_actor}
+  discount: 0.99
+  init_temperature: 0.5
+  lr: 1e-4
+  actor_update_frequency: 2
+  critic_target_tau: 0.01
+  critic_target_update_frequency: 2
+  encoder_target_tau: 0.05
+  encoder_update_frequency: 2
+  batch_size: ${rl_batch_size} # 512
+  num_seed_steps: ${num_seed_steps} #1000
+  env_name : ${env}
+  consider_done_true_in_critic : ${consider_done_true_in_critic}
+  agent_type : forward
+  env_obs_type : ${forward_env_obs_type}
+  adam_eps : ${adam_eps}
+  backward_proprioceptive_only : false
+  normalize_rl_obs : ${normalize_rl_obs}
+
+agent:
+  _target_: ibc.IBCAgent
+  obs_shape: ??? # to be specified later
+  action_shape: ??? # to be specified later
+  action_range: ??? # to be specified later
+  device: ${device}
+  encoder_cfg: ${encoder}
+  encoder_target_cfg: ${encoder}
+  critic_cfg: ${critic}
+  critic_target_cfg: ${critic}
+  actor_cfg: ${actor}
+  discount: 0.99
+  init_temperature: 0.5
+  lr: 1e-4
+  actor_update_frequency: 2
+  critic_target_tau: 0.01
+  critic_target_update_frequency: 2
+  encoder_target_tau: 0.05
+  encoder_update_frequency: 2
+  batch_size: ${rl_batch_size} # 512
+  num_seed_steps: ${num_seed_steps} #1000
+  env_name : ${env}
+  consider_done_true_in_critic : ${consider_done_true_in_critic}
+  agent_type : backward
+  env_obs_type : ${backward_env_obs_type}
+  adam_eps : ${adam_eps}
+  backward_proprioceptive_only : ${backward_proprioceptive_only}
+  normalize_rl_obs : ${normalize_rl_obs}
+
+
+# default
+forward_critic:
+ _target_: ibc.StateCritic
+ repr_dim : ${state_goal_dim} 
+ feature_dim: 50 
+ action_shape: ${forward_agent.action_shape}
+ hidden_depth: 3
+ hidden_dim: 512 
+ fc_layer_norm_for_obs : ${fc_layer_norm_for_obs}
+
+critic:
+ _target_: ibc.StateCritic  
+ repr_dim : ${state_goal_dim} 
+ feature_dim: 50 
+ action_shape: ${agent.action_shape}
+ hidden_depth: 3
+ hidden_dim: 512 
+ fc_layer_norm_for_obs : ${fc_layer_norm_for_obs}
+
+
+# default
+forward_actor:
+  _target_: ibc.StateActor  
+  repr_dim : ${state_goal_dim} 
+  feature_dim: 50 
+  action_shape: ${forward_agent.action_shape}
+  hidden_depth: 3
+  hidden_dim: 512 
+  log_std_bounds: [-10, 2]
+  fc_layer_norm_for_obs : ${fc_layer_norm_for_obs}
+
+actor:
+  _target_: ibc.StateActor  
+  repr_dim : ${state_goal_dim} 
+  feature_dim: 50 
+  action_shape: ${agent.action_shape}
+  hidden_depth: 3
+  hidden_dim: 512 
+  log_std_bounds: [-10, 2]
+  fc_layer_norm_for_obs : ${fc_layer_norm_for_obs}    
+
+
+
+forward_encoder:
+  _target_: ibc.IdentityEncoder    
+  repr_dim : ${state_dim}
+
+encoder:
+  _target_: ibc.IdentityEncoder    
+  repr_dim : ${state_dim}
+  
+
+
+
+# hydra configuration
+experiment: bench
+save_path_prefix : ${paths.default_save_path_prefix}
+xml_path : ${paths.workspace_path}
+
+hydra:
+  # name: ${env}
+  run: # single process    
+    dir: ${save_path_prefix}/${env}/${now:%Y.%m.%d}/${now:%H%M%S}    
+    
+  sweep: # multi process    
+    dir: ${save_path_prefix}/${env}/${now:%Y.%m.%d}/${now:%H%M%S}
+    subdir: ${seed} 
+  

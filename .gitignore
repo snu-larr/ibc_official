@@ -1,0 +1,17 @@
+__pycache__/
+.ipynb_checkpoints/
+exp_local
+rlkit/
+hydra_test.*
+results/
+plot/
+config/paths/config_path.yaml
+envs/assets/stls
+envs/assets/textures
+plot.py
+test.py
+misc/
+figure/
+.gitmodules
+.vscode/
+cost_flow.so

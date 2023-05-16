@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco>
+	<compiler angle="radian" coordinate="local" meshdir="../stls/fetch" texturedir="../textures"></compiler>
+	<option timestep="0.002">
+		<flag warmstart="enable"></flag>
+	</option>
+
+	<include file="shared.xml"></include>
+	
+	<worldbody>
+		<geom name="floor0" pos="0.8 0.75 0" size="0.85 0.70 1" type="plane" condim="3" material="floor_mat"></geom>
+		<body name="floor0" pos="0.8 0.75 0">
+			<site name="target0" pos="0 0 0.5" size="0.02 0.02 0.02" rgba="0 0.8 0 1" type="sphere"></site>
+		</body>
+
+		<include file="robot.xml"></include>
+
+		<body pos="1.35 0.75 0.2" name="table0">
+			<geom size="0.3 0.35 0.2" type="box" mass="2000" material="table_mat"></geom>
+		</body>
+		
+		<body name="object0" pos="0.025 0.025 0.025">
+            <joint name="object0:joint_px" type="slide" damping="0.01" axis="1 0 0" pos="0.025 0.025 0.025" range="1.19786948 1.49786948" limited="true" solreflimit="0.01 1" solimplimit="0.95 0.99 0.001"></joint>
+            <joint name="object0:joint_py" type="slide" damping="0.01" axis="0 1 0" pos="0.025 0.025 0.025" range="0.59894948 0.89894948" limited="true" solreflimit="0.01 1" solimplimit="0.95 0.99 0.001"></joint>
+            <joint name="object0:joint_pz" type="slide" damping="0.01" axis="0 0 1" pos="0.025 0.025 0.025" range="0 1" limited="true" solreflimit="0.01 1" solimplimit="0.95 0.99 0.001"></joint>
+            <joint name="object0:joint_rxyz" type="ball" damping="0.01"></joint>
+			<geom size="0.025 0.025 0.025" type="box" condim="3" name="object0" material="block_mat" mass="2"></geom>
+			<site name="object0" pos="0 0 0" size="0.02 0.02 0.02" rgba="1 0 0 1" type="sphere"></site>
+		</body>
+
+		<body name="object0:limit_vis" pos="0.025 0.025 0.025">
+			<geom conaffinity="0" contype="0" pos="1.34786948 0.54894948 0.4" rgba="0.8 0.4235 0.1647 0.2" size="0.2 0.005 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.34786948 0.54894948 1" rgba="0.8 0.4235 0.1647 0.2" size="0.2 0.005 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.34786948 0.94894948 0.4" rgba="0.8 0.4235 0.1647 0.2" size="0.2 0.005 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.34786948 0.94894948 1" rgba="0.8 0.4235 0.1647 0.2" size="0.2 0.005 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.14786948 0.74894948 0.4" rgba="0.8 0.4235 0.1647 0.2" size="0.005 0.2 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.14786948 0.74894948 1" rgba="0.8 0.4235 0.1647 0.2" size="0.005 0.2 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.54786948 0.74894948 0.4" rgba="0.8 0.4235 0.1647 0.2" size="0.005 0.2 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.54786948 0.74894948 1" rgba="0.8 0.4235 0.1647 0.2" size="0.005 0.2 0.005" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.14786948 0.54894948 0.7" rgba="0.8 0.4235 0.1647 0.2" size="0.005 0.005 0.3" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.14786948 0.94894948 0.7" rgba="0.8 0.4235 0.1647 0.2" size="0.005 0.005 0.3" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.54786948 0.54894948 0.7" rgba="0.8 0.4235 0.1647 0.2" size="0.005 0.005 0.3" type="box"></geom>
+			<geom conaffinity="0" contype="0" pos="1.54786948 0.94894948 0.7" rgba="0.8 0.4235 0.1647 0.2" size="0.005 0.005 0.3" type="box"></geom>
+		</body>
+
+		<light directional="true" ambient="0.2 0.2 0.2" diffuse="0.8 0.8 0.8" specular="0.3 0.3 0.3" castshadow="false" pos="0 0 4" dir="0 0 -1" name="light0"></light>
+		
+		<body name="dummy_for_vis" pos="0 0 0">
+			<site name="hand_1" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_2" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_3" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_4" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_5" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_6" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_7" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_8" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_9" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_10" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_11" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_12" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_13" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_14" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_15" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_16" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_17" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_18" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_19" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_20" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_21" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_22" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_23" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_24" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_25" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_26" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_27" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_28" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_29" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_30" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_31" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_32" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_33" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_34" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_35" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_36" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_37" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_38" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_39" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_40" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_41" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_42" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_43" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_44" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_45" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_46" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_47" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_48" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_49" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_50" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_51" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_52" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_53" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_54" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_55" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_56" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_57" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_58" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_59" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_60" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_61" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_62" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_63" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_64" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_65" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_66" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_67" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_68" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_69" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_70" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_71" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_72" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_73" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_74" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_75" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_76" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_77" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_78" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_79" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_80" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>    
+			<site name="hand_81" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_82" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_83" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_84" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_85" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_86" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_87" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_88" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_89" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_90" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>    
+			<site name="hand_91" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_92" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_93" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_94" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_95" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_96" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_97" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_98" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_99" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+			<site name="hand_100" pos="100 100 100" size="0.015" rgba="0 0 1 1"/>
+
+			<site name="obj_1" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_2" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_3" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_4" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_5" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_6" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_7" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_8" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_9" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_10" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_11" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_12" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_13" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_14" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_15" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_16" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_17" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_18" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_19" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_20" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_21" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_22" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_23" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_24" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_25" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_26" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_27" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_28" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_29" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_30" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_31" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_32" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_33" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_34" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_35" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_36" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_37" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_38" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_39" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_40" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_41" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_42" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_43" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_44" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_45" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_46" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_47" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_48" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_49" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_50" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_51" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_52" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_53" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_54" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_55" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_56" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_57" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_58" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_59" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_60" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_61" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_62" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_63" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_64" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_65" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_66" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_67" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_68" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_69" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_70" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_71" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_72" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_73" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_74" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_75" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_76" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_77" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_78" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_79" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_80" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_81" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_82" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_83" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_84" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_85" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_86" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_87" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_88" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_89" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_90" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_91" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_92" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_93" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_94" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_95" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_96" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_97" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_98" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_99" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+			<site name="obj_100" pos="100 100 100" size="0.015" rgba="1 0 0 1"/>
+		</body>
+	</worldbody>
+	
+	<actuator></actuator>
+</mujoco>
