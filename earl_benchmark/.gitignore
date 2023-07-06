@@ -1,0 +1,7 @@
+*__pycache__/
+*.pyc
+*.npy
+*.DS_Store
+demonstrations/tabletop_3obj/*
+figures/
+*.png
